@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunScript : MonoBehaviour {
 
 	public Transform projStartPoint;
-	public ProjectileScript projectile;
+	//public ProjectileScript projectile;
 	public float fireInterval = 100f;
 	public float projStartVelocity = 35f;
 
@@ -15,8 +15,9 @@ public class GunScript : MonoBehaviour {
 
 		if (Time.time > shotTimer){
 			shotTimer = Time.time + fireInterval / 1000;
-			ProjectileScript newProjectile = Instantiate(projectile, projStartPoint.position, projStartPoint.rotation) as ProjectileScript;
-			newProjectile.SetSpeed (projStartVelocity);
+			GameObject bullet = ObjectPool.GetFromPool(Poolable.types.BULLET);
+			//ProjectileScript newProjectile = Instantiate(projectile, projStartPoint.position, projStartPoint.rotation) as ProjectileScript;
+			//newProjectile.SetSpeed (projStartVelocity);
 		}
 	}
 }

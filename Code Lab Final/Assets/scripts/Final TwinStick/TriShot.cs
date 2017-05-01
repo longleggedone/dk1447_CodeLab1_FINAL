@@ -25,7 +25,15 @@ public class TriShot : GunScript {
 	}
 
 	public void FireProjectile(Vector3 pos, Quaternion rot){
-		ProjectileScript newProjectile = Instantiate(projectile, pos, rot) as ProjectileScript;
-		newProjectile.SetSpeed (projStartVelocity);
+		GameObject bullet = ObjectPool.GetFromPool(Poolable.types.BULLET);
+		bullet.transform.position = pos;
+		bullet.transform.rotation = rot;
+		Debug.Log (bullet.transform.rotation);
+		Rigidbody rb = bullet.GetComponent<Rigidbody>();
+		rb.velocity = Vector3.zero; //remove it's current velocity
+		rb.AddForce(bullet.transform.forward * 100); //moveSpeed); //give it an init force
+		Debug.Log ("force added");
+		//ProjectileScript newProjectile = Instantiate(projectile, pos, rot) as ProjectileScript;
+		//newProjectile.SetSpeed (projStartVelocity);
 	}
 }

@@ -21,6 +21,7 @@ public abstract class Poolable : MonoBehaviour {
 	void Update () {
 		if(RePool()){ //if the abstract method "Repool" returns true
 			ObjectPool.AddToPool(gameObject); //add the gameObject attached to this component to the ObjectPool
+			Debug.Log ("RePool");
 		}
 	}
 

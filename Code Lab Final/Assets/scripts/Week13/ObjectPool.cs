@@ -15,7 +15,7 @@ public class ObjectPool : MonoBehaviour {
 			if(bulletPool.Count > 0){ //if we have bullets in the bulletPool
 				result = bulletPool.Dequeue(); //get a bullet ou of the bulletPool
 			} else {
-				result = Instantiate(Resources.Load("Bullet")) as GameObject; //create a new bullet, since the pool is empty
+				result = Instantiate(Resources.Load("PlayerBullet")) as GameObject; //create a new bullet, since the pool is empty
 			}
 		} else {//if (type == Poolable.types.ENEMY){
 			if(enemyPool.Count > 0){ //if we have enemies in the enemyPool

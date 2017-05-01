@@ -34,7 +34,8 @@ public class SpreadShot : GunScript {
 	}
 
 	public void FireProjectile(Vector3 pos, Quaternion rot){
-		ProjectileScript newProjectile = Instantiate(projectile, pos, rot) as ProjectileScript;
-		newProjectile.SetSpeed (projStartVelocity);
+		GameObject bullet = ObjectPool.GetFromPool(Poolable.types.BULLET);
+		//ProjectileScript newProjectile = Instantiate(projectile, pos, rot) as ProjectileScript;
+		//newProjectile.SetSpeed (projStartVelocity);
 	}
 }
