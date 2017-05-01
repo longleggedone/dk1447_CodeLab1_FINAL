@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpreadShot : GunScript {
-
-
+public class TriShot : GunScript {
 
 	public float spreadAngle1 = 45;
 	public float spreadAngle2 = 315;
@@ -13,7 +11,7 @@ public class SpreadShot : GunScript {
 	public Transform projStartPointRight;
 
 	public void Start(){
-		
+
 	}
 
 	public override void Shoot(){ 
