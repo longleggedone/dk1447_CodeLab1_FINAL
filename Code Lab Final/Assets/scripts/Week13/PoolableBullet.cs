@@ -5,7 +5,7 @@ using UnityEngine;
 public class PoolableBullet : Poolable { //extends the abstract class "Poolable"
 
 	public float maxDistance; //distance the bullet can be from the player
-	public float moveSpeed = 400; //force to apply to the bullet
+	//public float moveSpeed = 1000; //force to apply to the bullet
 	GameObject player;//ref to the player object
 
 	public override void Setup () //override Setup (you have to, because it's abstract)
@@ -18,19 +18,19 @@ public class PoolableBullet : Poolable { //extends the abstract class "Poolable"
 	}
 
 	public override void Reset(){ //override Reset (you have to, because it's abstract)
-		print("Reset");
+//		print("Reset");
 
 		if(player == null){ //if we don't have a reference to the player yet
 			player = GameObject.Find("Player"); //get a ref to the player
 		}
 
-		Rigidbody rb = GetComponent<Rigidbody>(); //get the rigidBody attached to this bullet
+	//	Rigidbody rb = GetComponent<Rigidbody>(); //get the rigidBody attached to this bullet
 		transform.position = player.transform.position + new Vector3(0, 1, 0); //put the bullet near the player
 
 //		print(player.transform.position);
 
-		//rb.velocity = Vector3.zero; //remove it's current velocity
-		//rb.AddForce(Vector3.forward * moveSpeed); //give it an init force
-		Debug.Log ("force added");
+	//	rb.velocity = Vector3.zero; //remove it's current velocity
+	//	rb.AddForce(Vector3.forward * moveSpeed); //give it an init force
+	//	Debug.Log ("force added");
 	}
 }
