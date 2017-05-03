@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunScript : MonoBehaviour {
 
 	public Transform projStartPoint;
-	public float moveSpeed = 1;
+	public float moveSpeed = 100;
 	//public ProjectileScript projectile;
 	public float fireInterval = 100f;
 	public float projStartVelocity = 35f;
