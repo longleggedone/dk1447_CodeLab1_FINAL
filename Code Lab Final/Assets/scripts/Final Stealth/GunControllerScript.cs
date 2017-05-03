@@ -6,7 +6,7 @@ public class GunControllerScript : MonoBehaviour {
 
 	public Transform gunPos;
 	public GunScript startGun;
-	GunScript currentGun;
+	public GunScript currentGun;
 
 	void Start(){
 		if (startGun != null){

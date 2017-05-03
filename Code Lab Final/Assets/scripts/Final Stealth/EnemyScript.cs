@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
 
+	public static event System.Action OnPlayerSpotted; //event for when player is spotted
+
 	public float moveSpeed = 5;  //enemy movement speed
 	public float rotateSpeed = 90; //enemy rotation speed
 	public float pauseTime = 0.5f; //amount of time to wait at each waypoint
+	public float timeToSpotPlayer = 0.6f; //amount of time needed for the enemy to spot player once they are visible
 
 	public Transform waypointHolder; //holds waypoints for path
 	public Transform player; //holds reference to player
 	public Color patrolColor; //holds reference to spotlight color
+	public Color alertColor; //alerted color for spotlight
+	float playerVisibleTimer; //how long the player has been visible to the enemy
 
 
-	public LayerMask viewMask;
+	public LayerMask viewMask; //for obstacles
 	public Light spotlight; //the spotlight object for our enemy
 	public float viewDistance; //how far away we want our enemy to be able to spot things
 	private float viewAngle; //the angle we want our enemy to be able to spot things in
 
 	void Start(){
 		player = GameObject.FindGameObjectWithTag("Player").transform; //gets the transform of our player
-		patrolColor = spotlight.color;
+		patrolColor = spotlight.color; //sets patrolColor to equal the spotlight color
 		viewAngle = spotlight.spotAngle; //sets the view angle equal to the spot angle of the spotlight
 		Vector3[] waypoints = new Vector3[waypointHolder.childCount]; //creates an array to hold a number of positions equal to the number of waypoints
 		for (int i = 0; i < waypoints.Length; i++){
@@ -31,12 +36,21 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void Update(){
-		if(PlayerIsVisible()){
-			spotlight.color = Color.red;
-		}else{
-			spotlight.color = patrolColor;
+		if(PlayerIsVisible()){ //if we can see the player
+			playerVisibleTimer += Time.deltaTime; //increase how long the player has been visible
+			//spotlight.color = alertColor; //set the spotlight to the alert color
+		}else{ //if we can't see the player
+			playerVisibleTimer -= Time.deltaTime; //decrease the timer
+			//spotlight.color = patrolColor; //set the spotlight to the patrol color
 		}
-
+		playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer); //clamps timer value between zero and the time needed to spot the player
+		spotlight.color = Color.Lerp(patrolColor, alertColor, playerVisibleTimer/timeToSpotPlayer); //changes spotlight color smoothly based on how long the player has been visible
+	
+		if(playerVisibleTimer >= timeToSpotPlayer){
+			if (OnPlayerSpotted != null){
+				OnPlayerSpotted();
+			}
+		}
 	}
 
 	IEnumerator FollowWaypointPath(Vector3[] waypoints){ //enemy waypoint movement coroutine, using an array of waypoints

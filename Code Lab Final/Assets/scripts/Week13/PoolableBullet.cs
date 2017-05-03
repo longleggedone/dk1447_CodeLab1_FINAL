@@ -33,4 +33,11 @@ public class PoolableBullet : Poolable { //extends the abstract class "Poolable"
 	//	rb.AddForce(Vector3.forward * moveSpeed); //give it an init force
 	//	Debug.Log ("force added");
 	}
+
+	void OnCollisionEnter(Collision col){
+		if(col.gameObject.tag == "Enemy"){
+			Destroy(col.gameObject);
+		}
+		Destroy(gameObject);
+	}
 }
