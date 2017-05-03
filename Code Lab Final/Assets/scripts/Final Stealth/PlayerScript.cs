@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 	
-		if(Input.GetMouseButton(0)){
+		if(Input.GetMouseButtonDown(0)){
 			gunController.Shoot();
 		}
 	}
